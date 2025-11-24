@@ -1,0 +1,37 @@
+
+
+
+
+{% extends "base.html" %}
+{% block title %}Confirm OTP — FoodShare{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="card p-4">
+      {% if phone is defined and phone %}
+        <h4 class="mb-2">Confirm OTP for {{ phone }}</h4>
+      {% elif purpose is defined %}
+        <h4 class="mb-2">Confirm OTP ({{ purpose }})</h4>
+      {% else %}
+        <h4 class="mb-2">Confirm OTP</h4>
+      {% endif %}
+
+      {% if dev_otp %}
+        <div class="alert alert-warning">DEV OTP: <strong>{{ dev_otp }}</strong></div>
+      {% endif %}
+
+      <form method="post" action="{{ url_for('confirm_otp', purpose=purpose) }}">
+        <div class="mb-3">
+          <label class="form-label">OTP</label>
+          <input class="form-control" name="otp" required placeholder="Enter OTP">
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary">Confirm</button>
+          <a class="btn btn-outline-secondary" href="{{ url_for('index') }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

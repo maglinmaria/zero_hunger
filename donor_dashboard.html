@@ -1,0 +1,45 @@
+
+
+
+
+
+
+
+{% extends "base.html" %}
+{% block title %}Donor Dashboard — FoodShare{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Donor dashboard</h2>
+  <a class="btn btn-primary" href="{{ url_for('donor_create') }}">Create listing</a>
+</div>
+
+<p>Welcome, <strong>{{ current_user.name or current_user.phone }}</strong></p>
+
+<h4 class="mt-4">Your listings</h4>
+{% if listings %}
+  <div class="row g-3">
+    {% for li in listings %}
+      <div class="col-md-6">
+        <div class="card p-3">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h5 class="mb-1">{{ li.title }}</h5>
+              <div class="small text-muted">{{ li.servings }} servings · Pickup: {{ li.pickup_time }}</div>
+            </div>
+            <div class="text-end">
+              <div class="badge bg-secondary">{{ li.status }}</div>
+            </div>
+          </div>
+          <p class="mt-2 text-muted small">{{ li.description }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-muted">You have not created any listings yet.</p>
+{% endif %}
+
+<p class="mt-4"><a href="{{ url_for('logout') }}" class="btn btn-outline-secondary">Logout</a></p>
+{% endblock %}
+

@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+{% block title %}Delivery Dashboard — FoodShare{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Available jobs</h2>
+
+{% if jobs %}
+  <div class="list-group">
+    {% for job in jobs %}
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <div><strong>Job #{{ job.id }}</strong> — Listing {{ job.listing_id }}</div>
+          <div class="small text-muted">Status: {{ job.status }}</div>
+        </div>
+        <div>
+          <form method="post" action="{{ url_for('assign_job', job_id=job.id) }}" style="display:inline;">
+            <button class="btn btn-sm btn-primary" type="submit">Accept</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-muted">No jobs right now.</p>
+{% endif %}
+
+<p class="mt-4"><a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">Logout</a></p>
+{% endblock %}
+
